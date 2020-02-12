@@ -8,12 +8,12 @@ app.use(express.static(__dirname + "/public"));
 
 var wordRoutes = require('./routes/words');
 
-app.use('/api/words', wordRoutes);
+// app.use('/api/words', wordRoutes);
 
-app.get('/words/*', (req, res) => {
-    // console.log(req);
-    res.sendFile(path.resolve(__dirname, 'views', 'index.html'));
-});
+// app.get('/words/*', (req, res) => {
+//     // console.log(req);
+//     res.sendFile(path.resolve(__dirname, 'views', 'index.html'));
+// });
 
 app.listen(port, function() {
     console.log(`APP IS RUNNING ON PORT ${port}`);

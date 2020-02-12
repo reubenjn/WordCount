@@ -1,4 +1,9 @@
-var con = require('../database/connect');
+require('../database/database');
+const mongoose = require('mongoose');
+
+const words = mongoose.model('words');
+const articles = mongoose.model('articles');
+const sources = mongoose.model('sources');
 
 exports.getWords = (req, res) => {
   let sql = `SELECT w.word, sum(w.num) AS num, s.sourceName AS source
@@ -6,6 +11,7 @@ exports.getWords = (req, res) => {
             JOIN articles a ON a.ID = w.articleID
             JOIN sources s ON s.ID = a.sourceID
             GROUP BY w.word, s.sourceName;`;
+  let query = ``;
   // let sql = `SELECT word, num FROM words`;
   con.query(sql, (err, results) => {
       if (err) throw err;
