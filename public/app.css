@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,700');
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background: #ecf0f1;
+}
+
+.word-count-list {
+    list-style: none;
+}
+
+.hide {
+    display: none;
+}
+
+.show {
+    display: block;
+}

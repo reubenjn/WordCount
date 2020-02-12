@@ -1,0 +1,27 @@
+<html>
+    <head>
+        <title>Word Counter</title>
+        <link rel="stylesheet" href="/app.css" type="text/css"/>
+        <script
+            src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+            crossorigin="anonymous">
+        </script>
+    </head>
+    <body>
+        <h1><a href="/index.html">Word Count</a></h1>
+        <div id="home-view" class="show">
+            <p class="home-view">Click on a word to find articles that reference it!</p>
+            <div id="media-lists">
+                <ul class="word-count-list"></ul>
+            </div>
+        </div>
+        <div id="word-view" class="hide">
+            <p>Click on an article below to follow the hyperlink.</p>
+            <ul class="word-article-list"></ul>
+        </div>
+
+
+        <script type="text/javascript" src="/app.js"></script>
+    </body>
+</html>
