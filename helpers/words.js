@@ -6,38 +6,36 @@ const articles = mongoose.model('articles');
 const sources = mongoose.model('sources');
 
 exports.getWords = (req, res) => {
-  let sql = `SELECT w.word, sum(w.num) AS num, s.sourceName AS source
-            FROM words w
-            JOIN articles a ON a.ID = w.articleID
-            JOIN sources s ON s.ID = a.sourceID
-            GROUP BY w.word, s.sourceName;`;
-  let query = ``;
-  // let sql = `SELECT word, num FROM words`;
-  con.query(sql, (err, results) => {
-      if (err) throw err;
-      // let json = JSON.stringify(results);
-      console.log(results);
-      let retJson = {};
-      results.forEach(row => {
-        if (!retJson[row.source]) {
-          retJson[row.source] = [];
-        }
-        retJson[row.source].push({word: row.word, num: row.num});
-      })
-      res.send(JSON.stringify(retJson));
+  console.log(`new beginnings`);
+  let json = {};
+
+  // Promise.all([words.find({"word": "australia"}).populate('sourceId'),sources.find()]).then(result => {
+  words.find({}).populate('sourceId').then(result => {
+    result.forEach(w => {
+      if (!json[w.sourceId.name]) {
+        json[w.sourceId.name] = {};
+      }
+      if (!json[w.sourceId.name][w.word]) {
+        json[w.sourceId.name][w.word] = 0;
+      }
+      json[w.sourceId.name][w.word] += w.num;
+    });
+  })
+  .then(() => {
+    res.send(json);
   });
 }
 
 exports.getWord = (req, res) => {
-  let sql = `SELECT w.num, a.articleName, a.url, s.sourceName AS source
-            FROM words w
-            JOIN articles a ON a.ID = w.articleID
-            JOIN sources s ON a.sourceID = s.ID
-            WHERE w.word = '${req.params.word}';`;
-  con.query(sql, (err, results) => {
-    if (err) throw err;
-    res.send(JSON.stringify(results));
-  });
+  // let sql = `SELECT w.num, a.articleName, a.url, s.sourceName AS source
+  //           FROM words w
+  //           JOIN articles a ON a.ID = w.articleID
+  //           JOIN sources s ON a.sourceID = s.ID
+  //           WHERE w.word = '${req.params.word}';`;
+  // con.query(sql, (err, results) => {
+  //   if (err) throw err;
+  //   res.send(JSON.stringify(results));
+  // });
 }
 
 module.exports = exports;

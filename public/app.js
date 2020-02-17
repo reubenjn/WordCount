@@ -39,12 +39,9 @@ function addMediaSources(sources) {
 
 function addMediaBreakdown(mediaSources) {
     $("#home-view").append(Object.keys(mediaSources).map(source => {
-        console.log(source);
-        return `<div><h3>${source}</h3><ul class="word-count-list">${mediaSources[source].map(wc => {
-            console.log("wc=" + wc.word + " " + wc.num);
-            return `<li><a href="/words/${wc.word}">${wc.word}</a>: ${wc.num}</li>`
+        return `<div><h3>${source}</h3><ul class="word-count-list">${Object.keys(mediaSources[source]).map(wc => {
+            return `<li><a href="/words/${wc}">${wc}</a>: ${mediaSources[source][wc]}</li>`
         }).join('')}</ul></div>`;
-
     }).join(''));
 }
 

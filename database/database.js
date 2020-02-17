@@ -1,20 +1,21 @@
 const mongoose = require('mongoose');
 const keys = require('../config/keys');
-mongoose.model( 'words',
+mongoose.model( 'sources',
                 new mongoose.Schema({
-                    word: String,
-                    articleId: {type: mongoose.Types.ObjectId},
-                    num: Number
+                    name: String
                 }));
 mongoose.model( 'articles',
                 new mongoose.Schema({
                     url: String,
                     name: String,
-                    sourceId: {type: mongoose.Types.ObjectId}
+                    sourceId: {type: mongoose.Types.ObjectId, ref: 'sources'}
                 }));
-mongoose.model( 'sources',
+mongoose.model( 'words',
                 new mongoose.Schema({
-                    name: String
+                    word: String,
+                    articleId: {type: mongoose.Types.ObjectId, ref: 'articles'},
+                    sourceId: {type: mongoose.Types.ObjectId, ref: 'sources'},
+                    num: Number
                 }));
 mongoose.Promise = global.Promise;
 mongoose.connect(keys.mongoURI,
