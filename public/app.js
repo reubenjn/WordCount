@@ -29,14 +29,6 @@ $(document).ready(function() {
 
 });
 
-function addMediaSources(sources) {
-    sources.forEach(src => {
-        let newSrc = `<h3>${src}</h3>
-                    <ul class="word-count-list"></ul>`;
-        $("#media-lists").append(newSrc);
-    })
-}
-
 function addMediaBreakdown(mediaSources) {
     $("#home-view").append(Object.keys(mediaSources).map(source => {
         return `<div><h3>${source}</h3><ul class="word-count-list">${Object.keys(mediaSources[source]).map(wc => {
@@ -45,25 +37,13 @@ function addMediaBreakdown(mediaSources) {
     }).join(''));
 }
 
-function addWords(words) {
-    words.forEach(word => {
-        addWord(word);
-    });
-}
-
-function addWord(word) {
-    let newWord = `<li><a href="/words/${word.word}">${word.word}</a>: ${word.num}</li>`;
-    $(".word-count-list").append(newWord);
-}
-
 function addWordBreakdown(breakdowns) {
-    console.log(breakdowns);
-    console.log(2);
     toggleClasses(document.getElementById("home-view"), "hide", "show");
     toggleClasses(document.getElementById("word-view"), "hide", "show");
-    breakdowns.forEach(breakdown => {
-        console.log(breakdown);
-        let newCount = `<li>${breakdown.source} — <a href="https://${breakdown.url}">${breakdown.articleName}</a>: ${breakdown.num}</li>`;
+    let word = Object.keys(breakdowns)[0];
+    $("#selected-word").text(word);
+    Object.keys(breakdowns[word]).forEach(id => {
+        let newCount = `<li><a href="https://${breakdowns[word][id].url}">${breakdowns[word][id].name}</a>: ${breakdowns[word][id].num}</li>`;
         $(".word-article-list").append(newCount);
     });
 }

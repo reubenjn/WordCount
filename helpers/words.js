@@ -9,7 +9,6 @@ exports.getWords = (req, res) => {
   console.log(`new beginnings`);
   let json = {};
 
-  // Promise.all([words.find({"word": "australia"}).populate('sourceId'),sources.find()]).then(result => {
   words.find({}).populate('sourceId').then(result => {
     result.forEach(w => {
       if (!json[w.sourceId.name]) {
@@ -27,6 +26,26 @@ exports.getWords = (req, res) => {
 }
 
 exports.getWord = (req, res) => {
+  let word = req.params.word;
+  let json = {};
+  words.find({'word': word}).populate('articleId').then(result => {
+    json[word] = {};
+    result.forEach(a => {
+      // console.log(`a=${a}`);
+      if (!json[word][a.articleId._id]) {
+        json[word][a.articleId._id] = {};
+        json[word][a.articleId._id].url = a.articleId.url;
+        json[word][a.articleId._id].name = a.articleId.name;
+        json[word][a.articleId._id].num = a.num;
+      }
+    });
+  })
+  .catch((err) => {
+    console.log(`\nNOPE: ${err}\n`);
+  })
+  .then(() => {
+    res.send(json);
+  })
   // let sql = `SELECT w.num, a.articleName, a.url, s.sourceName AS source
   //           FROM words w
   //           JOIN articles a ON a.ID = w.articleID
