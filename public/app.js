@@ -1,26 +1,21 @@
 $(document).ready(function() {
-
-    $("h1").on("click", function() {
-        console.log(222);
-    })
-
     let url = window.location.href.toString().split(window.location.host)[1];
-    let isWordRoute = false;
+    let isAllWordsRoute = true;
     var urlWord;
     if (url.includes('/words/')) {
-        isWordRoute = true;
+        isAllWordsRoute = false;
         urlWord = url.split('/words/')[1];
     }
 
-    if (isWordRoute) {
-        $.getJSON(`/api/words/${urlWord}`)
-        .then(addWordBreakdown)
+    if (isAllWordsRoute) {
+        $.getJSON('/api/words')
+        .then(addMediaBreakdown)
         .catch((err) => {
             alert(`Uh oh. Something went wrong. ${err}`);
         })
     } else {
-        $.getJSON('/api/words')
-        .then(addMediaBreakdown)
+        $.getJSON(`/api/words/${urlWord}`)
+        .then(addWordBreakdown)
         .catch((err) => {
             alert(`Uh oh. Something went wrong. ${err}`);
         })
@@ -50,4 +45,16 @@ function addWordBreakdown(breakdowns) {
 
 function toggleClasses(element, ...classNames) {
     classNames.forEach(name => element.classList.toggle(name));
+}
+
+
+function toS(obj) {
+    Object.keys(obj).forEach(k => {
+      console.log(`${k}=${obj[k]}`);
+    })
+  }
+
+function clog(obj) {
+    console.log(`thisObject=${obj}`);
+    console.log(`thisObjectKeys=${Object.keys(obj)}`);
 }

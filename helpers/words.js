@@ -6,7 +6,6 @@ const articles = mongoose.model('articles');
 const sources = mongoose.model('sources');
 
 exports.getWords = (req, res) => {
-  console.log(`new beginnings`);
   let json = {};
 
   words.find({}).populate('sourceId').then(result => {
@@ -45,15 +44,12 @@ exports.getWord = (req, res) => {
   .then(() => {
     res.send(json);
   })
-  // let sql = `SELECT w.num, a.articleName, a.url, s.sourceName AS source
-  //           FROM words w
-  //           JOIN articles a ON a.ID = w.articleID
-  //           JOIN sources s ON a.sourceID = s.ID
-  //           WHERE w.word = '${req.params.word}';`;
-  // con.query(sql, (err, results) => {
-  //   if (err) throw err;
-  //   res.send(JSON.stringify(results));
-  // });
+}
+
+function toS(obj) {
+  Object.keys(obj).forEach(k => {
+    console.log(`${k}=${obj[k]}`);
+  })
 }
 
 module.exports = exports;
