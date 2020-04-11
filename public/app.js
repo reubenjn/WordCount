@@ -31,8 +31,8 @@ $(document).ready(function() {
 
 function addMediaBreakdown(mediaSources) {
     $("#home-view").append(Object.keys(mediaSources).map(source => {
-        return `<div><h3>${source}</h3><ul class="word-count-list">${Object.keys(mediaSources[source]).map(wc => {
-            return `<li><a href="/words/${wc}">${wc}</a>: ${mediaSources[source][wc]}</li>`
+        return `<div><h3>${source}</h3><ul class="word-count-list">${Object.keys(mediaSources[source]).map(word => {
+            return `<li class="first-dummy-class wcl-${source}"><a href="/words/${source}/${word}">${word}</a>: ${mediaSources[source][word]}</li>`
         }).join('')}</ul></div>`;
     }).join(''));
 }

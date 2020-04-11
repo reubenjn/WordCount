@@ -5,7 +5,7 @@ var helpers = require('../helpers/words');
 router.route('/')
     .get(helpers.getWords);
 
-router.route('/:word')
+router.route('/:source/:word')
     .get(helpers.getWord);
 
 module.exports = router;
