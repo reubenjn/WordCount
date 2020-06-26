@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "webpack --config webpack.config.js"
   },
   "author": "Reuben Niewenhuis",
   "license": "ISC",
@@ -13,5 +13,9 @@
     "express": "^4.17.1",
     "mongoose": "^5.8.11",
     "mysql": "^2.18.1"
+  },
+  "devDependencies": {
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11"
   }
 }
